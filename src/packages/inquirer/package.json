@@ -1,0 +1,28 @@
+{
+  "name": "@cto.ai/inquirer",
+  "version": "6.3.0",
+  "description": "A collection of common interactive command line user interfaces.",
+  "author": "Brett Campbell <brett@hackcapital.com>",
+  "files": [
+    "lib",
+    "README.md"
+  ],
+  "main": "lib/inquirer.js",
+  "keywords": [
+    "command",
+    "prompt",
+    "stdin",
+    "cli",
+    "tty",
+    "menu"
+  ],
+  "engines": {
+    "node": ">=6.0.0"
+  },
+  "scripts": {
+    "test": "nyc mocha test/**/* -r ./test/before",
+    "posttest": "nyc report --reporter=text-lcov > ../../coverage/nyc-report.lcov",
+    "prepublishOnly": "cp ../../README.md .",
+    "postpublish": "rm -f README.md"
+  }
+}

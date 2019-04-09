@@ -1,0 +1,49 @@
+{
+  "name": "@cto.ai/sdk",
+  "version": "1.0.11",
+  "description": "",
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc --allowJs"
+  },
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {
+    "@hackcapital/logger-nodejs": "^1.1.7-ops",
+    "@oclif/config": "^1.12.10",
+    "@types/cli-progress": "^1.8.1",
+    "@types/node-notifier": "^5.4.0",
+    "ansi-escapes": "^3.2.0",
+    "axios": "^0.18.0",
+    "chalk": "^2.4.2",
+    "cli-cursor": "^2.1.0",
+    "cli-progress": "^2.1.1",
+    "cli-ux": "^5.2.1",
+    "cli-width": "^2.0.0",
+    "dateformat": "^3.0.3",
+    "datejs": "^1.0.0-rc3",
+    "external-editor": "^3.0.3",
+    "figures": "^2.0.0",
+    "lodash": "^4.17.11",
+    "mute-stream": "0.0.7",
+    "node-notifier": "^5.4.0",
+    "run-async": "^2.2.0",
+    "rxjs": "^6.4.0",
+    "string-width": "^2.1.0",
+    "strip-ansi": "^5.1.0",
+    "terminal-link": "^1.3.0",
+    "through": "^2.3.6"
+  },
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "chalk-pipe": "^2.0.0",
+    "cmdify": "^0.0.4",
+    "mocha": "^5.0.0",
+    "mockery": "^2.1.0",
+    "nyc": "^13.1.0",
+    "sinon": "^7.1.1"
+  }
+}
