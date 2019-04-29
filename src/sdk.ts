@@ -11,16 +11,16 @@ const API_PATH = process.env.OPS_API_PATH || 'api/v1';
 
 async function user(): Promise<User> {
   const res = await axios({
-    url: API_HOST+API_PATH+'/auth',
-    method: 'post',
+    url: API_HOST + API_PATH + '/me',
+    method: 'GET',
     headers: {
-      Authorization: `Bearer ${process.env.OPS_ACCESS_TOKEN}`,
+      Authorization: `${process.env.OPS_ACCESS_TOKEN}`,
       'Content-Type': 'application/json'
     }
   }).catch(err => {
     throw err;
   });
-  return res.data;
+  return res.data.data;
 }
 
 // async function track(tag: string[] | string, metaData: object): Promise<void> {
