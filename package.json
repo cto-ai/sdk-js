@@ -4,7 +4,7 @@
   "description": "",
   "main": "./dist/index.js",
   "scripts": {
-    "build": "tsc --allowJs"
+    "prepack": "tsc --allowJs"
   },
   "author": "",
   "license": "ISC",
