@@ -1,26 +1,29 @@
-import axios from 'axios';
-import log from './log';
+import path from 'path'
+import axios from 'axios'
 interface User {
-  id: string;
+  id: string
 }
 
-const API_HOST = process.env.OPS_API_HOST || 'https://cto.ai/';
-const API_PATH = process.env.OPS_API_PATH || 'api/v1';
+const API_HOST = process.env.OPS_API_HOST || 'https://cto.ai/'
+const API_PATH = process.env.OPS_API_PATH || 'api/v1'
 
 // let currentUser: User;
 
 async function user(): Promise<User> {
+  const apiPathName = path.join(API_HOST, API_PATH, '/me')
+  const meUrl = new URL(apiPathName)
+
   const res = await axios({
-    url: API_HOST + API_PATH + '/me',
+    url: meUrl.href,
     method: 'GET',
     headers: {
       Authorization: `${process.env.OPS_ACCESS_TOKEN}`,
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+    },
   }).catch(err => {
-    throw err;
-  });
-  return res.data.data;
+    throw err
+  })
+  return res.data.data
 }
 
 // async function track(tag: string[] | string, metaData: object): Promise<void> {
@@ -36,6 +39,6 @@ async function user(): Promise<User> {
 // }
 
 export default {
-  user
+  user,
   // track
-};
+}
