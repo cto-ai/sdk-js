@@ -1,8 +1,8 @@
-'use strict';
+'use strict'
 
-var _ = require('lodash');
-var chalk = require('chalk');
-var figures = require('figures');
+var _ = require('lodash')
+var chalk = require('chalk')
+var figures = require('figures')
 
 /**
  * The paginator keeps track of a pointer index in a list and returns
@@ -11,27 +11,25 @@ var figures = require('figures');
 
 class Paginator {
   constructor(screen) {
-    this.pointer = 0;
-    this.lastIndex = 0;
-    this.screen = screen;
+    this.pointer = 0
+    this.lastIndex = 0
+    this.screen = screen
   }
 
   paginate(output, active, pageSize) {
-    pageSize = pageSize || 7;
-    var middleOfList = Math.floor(pageSize / 2);
-    var lines = output.split('\n');
+    pageSize = pageSize || 7
+    var middleOfList = Math.floor(pageSize / 2)
+    var lines = output.split('\n')
 
     if (this.screen) {
-      lines = this.screen.breakLines(lines);
-      active = _.sum(
-        lines.map(lineParts => lineParts.length).splice(0, active)
-      );
-      lines = _.flatten(lines);
+      lines = this.screen.breakLines(lines)
+      active = _.sum(lines.map(lineParts => lineParts.length).splice(0, active))
+      lines = _.flatten(lines)
     }
 
     // Make sure there's enough lines to paginate
     if (lines.length <= pageSize) {
-      return output;
+      return output
     }
 
     // Move the pointer only when the user go down and limit it to the middle of the list
@@ -42,21 +40,21 @@ class Paginator {
     ) {
       this.pointer = Math.min(
         middleOfList,
-        this.pointer + active - this.lastIndex
-      );
+        this.pointer + active - this.lastIndex,
+      )
     }
 
-    this.lastIndex = active;
+    this.lastIndex = active
 
     // Duplicate the lines so it give an infinite list look
-    var infinite = _.flatten([lines, lines, lines]);
-    var topIndex = Math.max(0, active + lines.length - this.pointer);
+    var infinite = _.flatten([lines, lines, lines])
+    var topIndex = Math.max(0, active + lines.length - this.pointer)
 
-    var section = infinite.splice(topIndex, pageSize).join('\n');
-    return (
-      `${section} \n  ${chalk.bold.white(figures.arrowDown)} ${chalk.dim(`${lines.length} total`)}`)
-    );
+    var section = infinite.splice(topIndex, pageSize).join('\n')
+    return `${section} \n  ${chalk.bold.white(figures.arrowDown)} ${chalk.dim(
+      `${lines.length} total`,
+    )}`
   }
 }
 
-module.exports = Paginator;
+module.exports = Paginator

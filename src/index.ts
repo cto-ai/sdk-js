@@ -1,5 +1,4 @@
-import ux from './ux';
-import sdk from './sdk';
-import log from './log';
+import ux from './ux'
+import sdk from './sdk'
 
-export { ux, sdk, log };
+export { ux, sdk }

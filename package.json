@@ -12,7 +12,6 @@
     "dist"
   ],
   "dependencies": {
-    "@hackcapital/logger-nodejs": "^1.1.7-ops",
     "@oclif/config": "^1.12.10",
     "@types/cli-progress": "^1.8.1",
     "@types/node-notifier": "^5.4.0",

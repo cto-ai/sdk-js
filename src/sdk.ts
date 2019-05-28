@@ -1,5 +1,6 @@
 import path from 'path'
 import axios from 'axios'
+
 interface User {
   id: string
 }
@@ -7,11 +8,11 @@ interface User {
 const API_HOST = process.env.OPS_API_HOST || 'https://cto.ai/'
 const API_PATH = process.env.OPS_API_PATH || 'api/v1'
 
-// let currentUser: User;
+let currentUser: User
+const apiPathName = path.join(API_HOST, API_PATH)
 
 async function user(): Promise<User> {
-  const apiPathName = path.join(API_HOST, API_PATH, '/me')
-  const meUrl = new URL(apiPathName)
+  const meUrl = new URL(path.join(apiPathName, '/me'))
 
   const res = await axios({
     url: meUrl.href,
@@ -26,19 +27,31 @@ async function user(): Promise<User> {
   return res.data.data
 }
 
-// async function track(tag: string[] | string, metaData: object): Promise<void> {
-//   if (!currentUser)
-//     currentUser = (await user().catch(err => {})) || { id: undefined };
-//   const event = {
-//     userId: currentUser.id,
-//     teamId: process.env.OPS_TEAM_ID,
-//     opId: process.env.OPS_OP_ID,
-//     metaData
-//   };
-//   log.info({ event, tags: tag });
-// }
+async function track(tags: string[] | string, metadata: object): Promise<void> {
+  const logUrl = new URL(path.join(apiPathName, '/log/event'))
+  if (!currentUser) {
+    currentUser = (await user().catch(err => {})) || { id: undefined }
+  }
+  await axios({
+    url: `${logUrl}`,
+    method: 'POST',
+    headers: {
+      Authorization: `${process.env.OPS_ACCESS_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    data: {
+      opid: process.env.OPS_OP_ID,
+      teamid: process.env.OPS_TEAM_ID,
+      userid: currentUser.id,
+      metadata,
+      tags,
+    },
+  }).catch(err => {
+    throw err
+  })
+}
 
 export default {
   user,
-  // track
+  track,
 }
