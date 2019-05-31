@@ -105,8 +105,7 @@ class AutocompletePrompt extends Base {
     }
 
     this.firstRender = false;
-
-    bottomContent += this.opt.bottomContent
+    if (this.opt.bottomContent) bottomContent += this.opt.bottomContent;
 
     this.screen.render(content, bottomContent);
   }
