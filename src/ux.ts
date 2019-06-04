@@ -1,15 +1,13 @@
 import cli from 'cli-ux';
-import inquirer from './packages/inquirer/lib/inquirer';
-import _cliProgress from 'cli-progress';
+import inquirer, { Question, Answers } from '@cto.ai/inquirer';
+import cliProgress from 'cli-progress';
 import notifier from 'node-notifier';
+import link from 'terminal-link';
 import colors from './colors';
-import sdk from './sdk';
-
-const link = require('terminal-link');
 
 const { table, tree, action } = cli;
 
-function url(text: string, url: string): void {
+function url(text: string, url: string): string {
   // sdk.track(['UX', 'url'], { text, url });
   return link(colors.multiBlue(text), url);
 }
@@ -22,7 +20,7 @@ function notify(options: object): void {
   notifier.notify(options);
 }
 
-async function prompt(questions: object[] | object): Promise<object> {
+async function prompt(questions: Question[] | Question): Promise<Answers> {
   // sdk.track(['UX', 'prompt'], questions);
   const answers = await inquirer.prompt(questions);
   return answers;
@@ -43,15 +41,15 @@ async function wait(duration: number): Promise<void> {
   await cli.wait(duration);
 }
 
-const present = {
+const present: cliProgress.Options = {
   format: colors.callOutCyan(' {bar} {percentage}% '),
   barCompleteChar: '\u2588',
   barIncompleteChar: '\u2591'
 };
 
-function init(options: object = present) {
+function init(options: cliProgress.Options = present) {
   // sdk.track(['UX', 'progress bar'], { options });
-  return new _cliProgress.Bar(options);
+  return new cliProgress.Bar(options);
 }
 
 export default {
@@ -67,5 +65,6 @@ export default {
   table,
   tree,
   progress: { init },
-  notify
+  notify,
+  inquirer,
 };
