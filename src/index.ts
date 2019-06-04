@@ -1,4 +1,4 @@
 import ux from './ux'
-import sdk from './sdk'
+import * as sdk from './sdk'
 
 export { ux, sdk }
