@@ -1,41 +1,75 @@
 import path from 'path'
 import axios from 'axios'
-import { APIResponse, User, Team } from './types';
+import util from 'util'
+import childProcess from 'child_process'
+import isDocker from 'is-docker'
+import os from 'os'
+import { APIResponse, User, Team } from './types'
 
 interface UserResponse {
-  me: User;
+  me: User
   teams: Team[]
 }
+
+const pExec = util.promisify(childProcess.exec)
 
 const API_HOST = process.env.OPS_API_HOST || 'https://cto.ai/'
 const API_PATH = process.env.OPS_API_PATH || 'api/v1'
 
-let currentUser: UserResponse | undefined;
+let currentUser: UserResponse | undefined
 const apiPathName = path.join(API_HOST, API_PATH)
+
+export async function exec(
+  command: string,
+): Promise<{ stdout: string; stderr: string } | Error> {
+  try {
+    return pExec(command)
+  } catch (err) {
+    return err
+  }
+}
+
+export function homeDir(): string {
+  return isContainer() ? '/root' : os.homedir()
+}
+
+// TODO: enable other checks besides docker container and host
+export function isContainer(): boolean {
+  return isDocker()
+}
+
+export function log(...args: any[]): void {
+  console.log(...args)
+}
 
 export async function user(): Promise<UserResponse> {
   const meUrl = new URL(path.join(apiPathName, '/me'))
 
-  const res = await axios.request<APIResponse<UserResponse>>({
-    url: meUrl.href,
-    method: 'GET',
-    headers: {
-      Authorization: process.env.OPS_ACCESS_TOKEN,
-      'Content-Type': 'application/json',
-    },
-  }).catch((err) => {
-    throw err
-  })
+  const res = await axios
+    .request<APIResponse<UserResponse>>({
+      url: meUrl.href,
+      method: 'GET',
+      headers: {
+        Authorization: process.env.OPS_ACCESS_TOKEN,
+        'Content-Type': 'application/json',
+      },
+    })
+    .catch(err => {
+      throw err
+    })
 
   return res.data.data
 }
 
-export async function track(tags: string[] | string, metadata: object): Promise<void> {
+export async function track(
+  tags: string[] | string,
+  metadata: object,
+): Promise<void> {
   const logUrl = new URL(path.join(apiPathName, '/log/event'))
   if (!currentUser) {
     try {
-      currentUser = await user();
-    } catch(err) {
+      currentUser = await user()
+    } catch (err) {
       // TODO: currently we swallow this error but it should be reported to the server
     }
   }
@@ -55,7 +89,7 @@ export async function track(tags: string[] | string, metadata: object): Promise<
         metadata,
         tags,
       },
-    });
+    })
   } catch (err) {
     // TODO: again, just swallowing the error for now. We should be reporting it
   }
