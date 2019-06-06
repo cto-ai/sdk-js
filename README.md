@@ -31,7 +31,7 @@ npm install @cto.ai/sdk
 ```
 
 ```javascript
-const { sdk, ux, log } from '@cto.ai/sdk';
+const { sdk, ux } from '@cto.ai/sdk';
 ```
 
 # Methods
