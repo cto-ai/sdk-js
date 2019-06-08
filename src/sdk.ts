@@ -5,11 +5,17 @@ import childProcess from 'child_process'
 import isDocker from 'is-docker'
 import os from 'os'
 import { APIResponse, User, Team } from './types'
+import { State } from './state'
 
 interface UserResponse {
   me: User
   teams: Team[]
 }
+const stateDir = path.resolve(
+  `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${
+    process.env.OPS_OP_NAME
+  }`,
+)
 
 const pExec = util.promisify(childProcess.exec)
 
@@ -59,6 +65,16 @@ export async function user(): Promise<UserResponse> {
     })
 
   return res.data.data
+}
+
+export async function setState(key: string, value: any): Promise<void> {
+  const state = new State(stateDir)
+  await state.set(key, value)
+}
+
+export async function getState(key: string): Promise<any> {
+  const state = new State(stateDir)
+  return await state.get(key)
 }
 
 export async function track(
