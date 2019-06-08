@@ -6,7 +6,8 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "prepublishOnly": "npm run build",
-    "build": "rm -rf dist/ && tsc"
+    "build": "rm -rf dist/ && tsc",
+    "postversion": "git push"
   },
   "author": "",
   "license": "ISC",
