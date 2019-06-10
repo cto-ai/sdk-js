@@ -35,6 +35,10 @@ export async function exec(
   }
 }
 
+export function getHostOS(): string {
+  return os.platform()
+}
+
 export function homeDir(): string {
   return isContainer() ? '/root' : os.homedir()
 }
