@@ -50,13 +50,13 @@ const answers = await ux.prompt(questions);
 Question
 A question object is a hash containing question related values:
 
-#### Question
+### Question
 
 <a name="questions"></a>
 A question object is a `hash` containing question related values:
 
 - **type**: (String) Type of the prompt. Defaults: `input` - Possible values: `input`, `number`, `confirm`,
-  `list`, `rawlist`, `expand`, `checkbox`, `password`, `editor`, `datetime`, `autocomplete`
+  `list`, `rawlist`, `expand`, `checkbox`, `password`, `editor`, `datetime`, `autocomplete`, `checkbox-plus`, `fuzzy-path`, `emoji`
 - **name**: (String) The name to use when storing the answer in the answers hash. If the name contains periods, it will define a path in the answers hash.
 - **message**: (String|Function) The question to print. If defined as a function, the first parameter will be the current inquirer session answers. Defaults to the value of `name` (followed by a colon).
 - **default**: (String|Number|Boolean|Array|Function) Default value(s) to use if nothing is entered, or a function that returns the default value(s). If defined as a function, the first parameter will be the current inquirer session answers.
@@ -72,6 +72,125 @@ A question object is a `hash` containing question related values:
 - **afterMessage**: (String) replaces `message` after question is answered.
 
 for more information: https://github.com/SBoudrias/Inquirer.js#documentation
+
+### Prompt types
+
+---
+
+> **Note:**: _allowed options written inside square brackets (`[]`) are optional. Others are required._
+
+#### List - `{type: 'list'}`
+
+Take `type`, `name`, `message`, `choices`[, `default`, `filter`] properties. (Note that
+default must be the choice `index` in the array or a choice `value`)
+
+![List prompt](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/list.svg)
+
+---
+
+#### Raw List - `{type: 'rawlist'}`
+
+Take `type`, `name`, `message`, `choices`[, `default`, `filter`] properties. (Note that
+default must be the choice `index` in the array)
+
+![Raw list prompt](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/rawlist.svg)
+
+---
+
+#### Expand - `{type: 'expand'}`
+
+Take `type`, `name`, `message`, `choices`[, `default`] properties. (Note that
+default must be the choice `index` in the array. If `default` key not provided, then `help` will be used as default choice)
+
+Note that the `choices` object will take an extra parameter called `key` for the `expand` prompt. This parameter must be a single (lowercased) character. The `h` option is added by the prompt and shouldn't be defined by the user.
+
+See `examples/expand.js` for a running example.
+
+![Expand prompt closed](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/expand-y.svg)
+![Expand prompt expanded](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/expand-d.svg)
+
+---
+
+#### Checkbox - `{type: 'checkbox'}`
+
+Take `type`, `name`, `message`, `choices`[, `filter`, `validate`, `default`] properties. `default` is expected to be an Array of the checked choices value.
+
+Choices marked as `{checked: true}` will be checked by default.
+
+Choices whose property `disabled` is truthy will be unselectable. If `disabled` is a string, then the string will be outputted next to the disabled choice, otherwise it'll default to `"Disabled"`. The `disabled` property can also be a synchronous function receiving the current answers as argument and returning a boolean or a string.
+
+![Checkbox prompt](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/checkbox.svg)
+
+---
+
+#### Confirm - `{type: 'confirm'}`
+
+Take `type`, `name`, `message`, [`default`] properties. `default` is expected to be a boolean if used.
+
+![Confirm prompt](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/confirm.svg)
+
+---
+
+#### Input - `{type: 'input'}`
+
+Take `type`, `name`, `message`[, `default`, `filter`, `validate`, `transformer`] properties.
+
+![Input prompt](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/input.svg)
+
+---
+
+#### Input - `{type: 'number'}`
+
+Take `type`, `name`, `message`[, `default`, `filter`, `validate`, `transformer`] properties.
+
+---
+
+#### Password - `{type: 'password'}`
+
+Take `type`, `name`, `message`, `mask`,[, `default`, `filter`, `validate`] properties.
+
+![Password prompt](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/password.svg)
+
+---
+
+Note that `mask` is required to hide the actual user input.
+
+#### Editor - `{type: 'editor'}`
+
+Take `type`, `name`, `message`[, `default`, `filter`, `validate`] properties
+
+Launches an instance of the users preferred editor on a temporary file. Once the user exits their editor, the contents of the temporary file are read in as the result. The editor to use is determined by reading the $VISUAL or $EDITOR environment variables. If neither of those are present, notepad (on Windows) or vim (Linux or Mac) is used.
+
+#### Checkbox with autocomplete - `{type: 'checkbox-plus'}`
+
+Takes `type`, `name`, `message`, `source` [, `filter`, `validate`, `default`, `pageSize`, `highlight`, `searchable`, `enablebackspace`, `answer`, `footer`, `header`, `keypress`, `searching`, `noresult`] properties.
+
+![Checkbox1](./screenshots/checkbox-plus.png)
+
+![Checkbox2](./screenshots/checkbox-plus2.png)
+
+for example and more information: https://github.com/yviscool/inquirer-checkbox-plus
+
+
+#### Fuzzy path - `{type: 'fuzzypath'}`
+
+Take `type`, `name`, `message` [, `excludePath`, `itemType`, `rootPath`, `suggestOnly`]
+
+![FuzzyPath1](./screenshots/fuzzypath1.png)
+
+![FuzzyPath2](./screenshots/fuzzypath2.png)
+
+for example and more information: https://github.com/adelsz/inquirer-fuzzy-path
+
+
+#### Emoji - `{type: 'emoji'}`
+
+Take `type`, `name`, `message`
+
+for example and more information: https://github.com/tannerntannern/inquirer-emoji
+
+
+![Emoji](./screenshots/emoji.png)
 
 ## ux.colors
 
