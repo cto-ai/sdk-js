@@ -6,14 +6,20 @@ import isDocker from 'is-docker'
 import os from 'os'
 import { APIResponse, User, Team } from './types'
 import { State } from './state'
+import { Config } from './config'
 
 interface UserResponse {
   me: User
   teams: Team[]
 }
+
+const configDir = path.resolve(
+  `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${process.env.OPS_OP_NAME}`,
+)
+
 const stateDir = path.resolve(
-  `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${
-    process.env.OPS_OP_NAME
+  `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${process.env.OPS_OP_NAME}/${
+    process.env.RUN_ID
   }`,
 )
 
@@ -75,6 +81,16 @@ export async function setState(key: string, value: any): Promise<void> {
 export async function getState(key: string): Promise<any> {
   const state = new State(stateDir)
   return await state.get(key)
+}
+
+export async function setConfig(key: string, value: any): Promise<void> {
+  const config = new Config(configDir)
+  await config.set(key, value)
+}
+
+export async function getConfig(key: string): Promise<any> {
+  const config = new Config(configDir)
+  return await config.get(key)
 }
 
 export async function track(

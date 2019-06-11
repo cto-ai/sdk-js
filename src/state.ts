@@ -2,12 +2,10 @@ import { outputJson, readJson } from 'fs-extra'
 import * as path from 'path'
 
 export class State {
-  constructor(
-    private stateDir: string
-  ) {}
+  constructor(private stateDir: string) {}
 
   getAll = async (): Promise<Record<string, any>> => {
-    return readJson(path.join(this.stateDir, 'config.json')).catch(() => ({}))
+    return readJson(path.join(this.stateDir, 'state.json')).catch(() => ({}))
   }
 
   get = async (key: string): Promise<any> => {
@@ -22,7 +20,7 @@ export class State {
       ...origConfigObj,
       [key]: value,
     }
-    await outputJson(path.join(this.stateDir, 'config.json'), mergedConfigObj)
+    await outputJson(path.join(this.stateDir, 'state.json'), mergedConfigObj)
     return mergedConfigObj
   }
 }
