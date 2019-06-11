@@ -35,8 +35,8 @@ export async function exec(
   }
 }
 
-export function getHostOS(): string {
-  return os.platform()
+export function getHostOS(): string | undefined {
+  return isContainer() ? process.env.OPS_HOST_PLATFORM : os.platform()
 }
 
 export function homeDir(): string {
