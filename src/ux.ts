@@ -1,6 +1,7 @@
 import cli from 'cli-ux'
-import inquirer, { Question } from '@cto.ai/inquirer'
-import cliProgress from 'cli-progress'
+import inquirer = require('@cto.ai/inquirer')
+import { Question } from '@cto.ai/inquirer'
+import * as cliProgress from 'cli-progress'
 import notifier from 'node-notifier'
 import link from 'terminal-link'
 import colors from './colors'
