@@ -7,6 +7,9 @@ import os from 'os'
 import { APIResponse, User, Team } from './types'
 import { State } from './state'
 import { Config } from './config'
+import * as yargsOrig from 'yargs'
+
+export const yargs = yargsOrig
 
 interface UserResponse {
   me: User
@@ -69,13 +72,17 @@ export async function user(): Promise<UserResponse> {
 
 export function getStatePath(): string {
   return path.resolve(
-    `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${process.env.OPS_OP_NAME}/${process.env.RUN_ID}`,
+    `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${
+      process.env.OPS_OP_NAME
+    }/${process.env.RUN_ID}`,
   )
 }
 
 export function getConfigPath(): string {
   return path.resolve(
-    `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${process.env.OPS_OP_NAME}`,
+    `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${
+      process.env.OPS_OP_NAME
+    }`,
   )
 }
 
