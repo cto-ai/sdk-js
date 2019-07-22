@@ -6,12 +6,6 @@ Please provide more information about the failure.
 
 Please describe here the expected behaviour.
 
-# Tasks
-
-- [ ] Task 1
-- [ ] Task 2
-- [ ] You get it...
-
 ## Steps to Reproduce
 
 Please provide detailed steps for reproducing the issue.
@@ -28,7 +22,15 @@ Example: Operating System, Operating System version, and Runtime (NodeJS/Go/Rust
 
 ## Logs
 
-If any, please include relevant log snippets or files here.
+If any, please include relevant log snippets or files here or screenshots.
+
+# Tasks
+
+If the steps to correct this Bug ticket are clear and known by the person opening this ticket, then they can fill out the "Action" based tasks to remedy this Bug.
+
+- [ ] Task 1
+- [ ] Task 2
+- [ ] You get it...
 
 # Prerequisites
 
@@ -38,5 +40,5 @@ Please answer the following questions for yourself before submitting an issue.
 - I've checked the documentation and found no answer.
 - I've checked to make sure that this issue has not already been filed.
 - I've read the `CONTRIBUTING.md` document.
-- I've labelled, estimated (both `time` and weight`) and assigned this issue to a milestone.
+- I've labelled, estimated (both `time` and `weight`) and assigned this issue to a milestone.
 - I'm reporting the issue to the correct repository
