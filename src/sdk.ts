@@ -72,17 +72,13 @@ export async function user(): Promise<UserResponse> {
 
 export function getStatePath(): string {
   return path.resolve(
-    `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${
-      process.env.OPS_OP_NAME
-    }/${process.env.RUN_ID}`,
+    `${homeDir()}/.config/@cto.ai/ops/${process.env.STATE_DIR}`,
   )
 }
 
 export function getConfigPath(): string {
   return path.resolve(
-    `${homeDir()}/.config/@cto.ai/ops/${process.env.OPS_TEAM_NAME}/${
-      process.env.OPS_OP_NAME
-    }`,
+    `${homeDir()}/.config/@cto.ai/ops/${process.env.CONFIG_DIR}`,
   )
 }
 
