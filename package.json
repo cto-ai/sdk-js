@@ -15,7 +15,7 @@
     "dist"
   ],
   "dependencies": {
-    "@cto.ai/inquirer": "^6.3.6",
+    "@cto.ai/inquirer": "^6.4.1",
     "@oclif/config": "^1.12.10",
     "@types/cli-progress": "^1.8.1",
     "@types/fs-extra": "^7.0.0",
