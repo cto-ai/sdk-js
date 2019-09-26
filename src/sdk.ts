@@ -128,7 +128,7 @@ export async function track(
         teamid: process.env.OPS_TEAM_ID,
         userid: currentUser !== undefined ? currentUser.me.id : undefined,
         metadata,
-        tags,
+        tags: Array.isArray(tags) ? tags : [tags],
       },
     })
   } catch (err) {
