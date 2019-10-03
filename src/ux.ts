@@ -21,6 +21,13 @@ function notify(options: object): void {
   notifier.notify(options)
 }
 
+async function print(text: string): Promise<void> {
+  return new Promise(resolve => {
+    console.log(text)
+    resolve()
+  })
+}
+
 async function prompt<A>(questions: Question[] | Question): Promise<A> {
   // sdk.track(['UX', 'prompt'], questions);
   return inquirer.prompt<A>(questions)
@@ -53,6 +60,7 @@ function init(options: cliProgress.Options = present) {
 }
 
 export default {
+  print,
   prompt,
   colors,
   spinner: {

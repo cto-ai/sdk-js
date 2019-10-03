@@ -204,6 +204,17 @@ ux.colors.red('Red text');
 
 for more information: https://github.com/chalk/chalk#usage
 
+## ux.print
+
+<a name="print"></a>
+
+Prints a string message for the user.
+
+```typescript
+await ux.print("Hello world!");
+await ux.print(`Found ${records.length} records`);
+```
+
 ## ux.spinner
 
 <a name="spinner"></a>
