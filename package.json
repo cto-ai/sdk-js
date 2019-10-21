@@ -1,6 +1,6 @@
 {
   "name": "@cto.ai/sdk",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -15,7 +15,7 @@
     "dist"
   ],
   "dependencies": {
-    "@cto.ai/inquirer": "^6.4.1",
+    "@cto.ai/inquirer": "^6.4.4",
     "@oclif/config": "^1.12.10",
     "@types/cli-progress": "^1.8.1",
     "@types/fs-extra": "^7.0.0",
