@@ -61,11 +61,11 @@ A question object is a `hash` containing question related values:
 - **message**: (String|Function) The question to print. If defined as a function, the first parameter will be the current inquirer session answers. Defaults to the value of `name` (followed by a colon).
 - **default**: (String|Number|Boolean|Array|Function) Default value(s) to use if nothing is entered, or a function that returns the default value(s). If defined as a function, the first parameter will be the current inquirer session answers.
 - **choices**: (Array|Function) Choices array or a function returning a choices array. If defined as a function, the first parameter will be the current inquirer session answers.
-  Array values can be simple `strings`, or `objects` containing a `name` (to display in list), a `value` (to save in the answers hash) and a `short` (to display after selection) properties. The choices array can also contain [a `Separator`](#separator).
+  Array values can be simple `strings`, or `objects` containing a `name` (to display in list), a `value` (to save in the answers hash), and a `short` (to display after selection) properties. The choices array can also contain [a `Separator`](#separator).
 - **validate**: (Function) Receive the user input and answers hash. Should return `true` if the value is valid, and an error message (`String`) otherwise. If `false` is returned, a default error message is provided.
 - **filter**: (Function) Receive the user input and return the filtered value to be used inside the program. The value returned will be added to the _Answers_ hash.
 - **transformer**: (Function) Receive the user input, answers hash and option flags, and return a transformed value to display to the user. The transformation only impacts what is shown while editing. It does not modify the answers hash.
-- **autocomplete**: (Array) A list of choices to be used for autocomplete. When provided the `source` attribute is unnecessary.
+- **autocomplete**: (Array|Object) A list of choices to be used for autocomplete. Can be provided either as an array of strings, or as an object with the following properties: name (name to be displayed) and helpInfo (related help information on toggle). When autocomplete is provided, the source attribute is unnecessary.
 - **when**: (Function, Boolean) Receive the current user answers hash and should return `true` or `false` depending on whether or not this question should be asked. The value can also be a simple boolean.
 - **pageSize**: (Number) Change the number of lines that will be rendered when using `list`, `rawList`, `expand` or `checkbox`.
 - **prefix**: (String) Change the default _prefix_ message.
@@ -117,7 +117,9 @@ See `examples/expand.js` for a running example.
 Take `type`, `name`, `message`, `choices`[, `filter`, `validate`, `default`] properties. `default` is expected to be an Array of the checked choices value.
 
 Choices marked as `{checked: true}` will be checked by default.
+Choices marked as `{mandatory: true}` will be checked and unselectable by default.
 
+Choices with `helpInfo` property provided will have toggable help info displayed. `helpInfo` property takes in `strings`.
 Choices whose property `disabled` is truthy will be unselectable. If `disabled` is a string, then the string will be outputted next to the disabled choice, otherwise it'll default to `"Disabled"`. The `disabled` property can also be a synchronous function receiving the current answers as argument and returning a boolean or a string.
 
 ![Checkbox prompt](https://cdn.rawgit.com/SBoudrias/Inquirer.js/28ae8337ba51d93e359ef4f7ee24e79b69898962/assets/screenshots/checkbox.svg)
