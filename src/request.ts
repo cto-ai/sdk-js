@@ -1,7 +1,8 @@
 import axios from 'axios'
 import { readFileSync } from 'fs'
+import { Questions } from './types'
 
-export const prompt = async (data: Object): Promise<any> => {
+export const prompt = async <A>(data: Questions): Promise<A> => {
   const daemonResponse = await axios.post(
     `http://127.0.0.1:${process.env.SDK_SPEAK_PORT}/prompt`,
     data,
@@ -10,7 +11,7 @@ export const prompt = async (data: Object): Promise<any> => {
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
-function sendRequest(endpoint: string): (data: Object) => Promise<void> {
+function sendRequest(endpoint: string): (data: any) => Promise<void> {
   const fullURL = `http://127.0.0.1:${process.env.SDK_SPEAK_PORT}/${endpoint}`
 
   return async (data: any): Promise<any> => {
