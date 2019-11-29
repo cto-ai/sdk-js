@@ -1,62 +1,65 @@
 import cli from 'cli-ux'
-import inquirer = require('@cto.ai/inquirer')
-import { Question } from '@cto.ai/inquirer'
-import * as cliProgress from 'cli-progress'
-import notifier from 'node-notifier'
 import link from 'terminal-link'
+import { Questions } from './types'
 import colors from './colors'
+import * as request from './request'
 
-const { table, tree, action } = cli
+const { table, tree } = cli
 
 function url(text: string, url: string): string {
   // sdk.track(['UX', 'url'], { text, url });
   return link(colors.multiBlue(text), url)
 }
-function annotation(text: string, annotation: string): void {
-  // sdk.track(['UX', 'annotation'], { text, annotation });
-  cli.annotation(text, annotation)
-}
-function notify(options: object): void {
-  // sdk.track(['UX', 'notify'], options);
-  notifier.notify(options)
-}
 
 async function print(text: string): Promise<void> {
-  return new Promise(resolve => {
-    console.log(text)
-    resolve()
+  await request.print({
+    text,
   })
 }
 
-async function prompt<A>(questions: Question[] | Question): Promise<A> {
-  // sdk.track(['UX', 'prompt'], questions);
-  return inquirer.prompt<A>(questions)
+async function prompt(questions: Questions): Promise<any> {
+  if (Array.isArray(questions)) {
+    return questions.reduce(async (results: Object, question) => {
+      return Object.assign(results, await request.prompt(question))
+    }, {})
+  }
+  return request.prompt(questions)
 }
 
-function start(text: string): void {
-  // sdk.track(['UX', 'spiner-start']);
-  action.start(text)
+async function start(text: string): Promise<void> {
+  await request.start({
+    text,
+  })
 }
 
-function stop(text: string): void {
-  // sdk.track(['UX', 'spiner-stop']);
-  action.stop(text)
+async function stop(text: string): Promise<void> {
+  await request.stop({
+    text,
+  })
 }
 
 async function wait(duration: number): Promise<void> {
-  // sdk.track(['UX', 'wait'], { duration });
   await cli.wait(duration)
 }
 
-const present: cliProgress.Options = {
-  format: colors.callOutCyan(' {bar} {percentage}% '),
-  barCompleteChar: '\u2588',
-  barIncompleteChar: '\u2591',
+function init() {
+  return { start: startProgress, increment: advance, stop: stopProgress }
 }
 
-function init(options: cliProgress.Options = present) {
-  // sdk.track(['UX', 'progress bar'], { options });
-  return new cliProgress.Bar(options)
+async function startProgress(
+  length: number,
+  initial?: number,
+  message?: string,
+): Promise<void> {
+  await request.startProgress({ length, initial, text: message })
+}
+
+async function advance(increment?: number): Promise<void> {
+  await request.advanceProgress({ increment })
+}
+
+async function stopProgress(message?: string): Promise<void> {
+  await request.stopProgress({ text: message })
 }
 
 export default {
@@ -69,10 +72,7 @@ export default {
   },
   wait,
   url,
-  annotation,
   table,
   tree,
   progress: { init },
-  notify,
-  inquirer,
 }
