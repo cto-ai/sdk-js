@@ -17,13 +17,23 @@ async function print(text: string): Promise<void> {
   })
 }
 
-async function prompt(questions: Questions): Promise<any> {
+async function prompt<A>(questions: Questions): Promise<A> {
+  let answersObject = {} as A
+
   if (Array.isArray(questions)) {
-    return questions.reduce(async (results: Object, question) => {
-      return Object.assign(results, await request.prompt(question))
-    }, {})
+    for (const question of questions) {
+      const response = await request.prompt<A>(question)
+      answersObject = {
+        ...answersObject,
+        ...response,
+      }
+    }
+
+    return answersObject
   }
-  return request.prompt(questions)
+
+  answersObject = await request.prompt<A>(questions)
+  return answersObject
 }
 
 async function start(text: string): Promise<void> {

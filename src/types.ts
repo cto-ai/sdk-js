@@ -54,7 +54,7 @@ interface QuestionCommon<A> {
 //   match?: RegExp
 // }
 
-type Question<A extends Answers = Answers> =
+export type Question<A extends Answers = Answers> =
   | InputQuestion<A>
   | NumberQuestion<A>
   | SecretQuestion<A>
