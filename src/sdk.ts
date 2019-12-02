@@ -4,6 +4,7 @@ import childProcess from 'child_process'
 import { State } from './state'
 import { Config } from './config'
 import * as request from './request'
+import { Interfaces } from './types'
 
 const pExec = util.promisify(childProcess.exec)
 
@@ -19,6 +20,10 @@ export async function exec(
 
 export function getHostOS(): string {
   return process.env.OPS_HOST_PLATFORM || 'unknown'
+}
+
+export function getInterfaceType(): Interfaces {
+  return (process.env.SDK_INTERFACE_TYPE as Interfaces) || Interfaces.Terminal
 }
 
 export function homeDir(): string {
