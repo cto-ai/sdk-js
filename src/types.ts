@@ -46,7 +46,7 @@ export type Question<A extends Answers = Answers> =
   | AutoCompleteQuestion<A>
   | CheckboxQuestion<A>
   | EditorQuestion<A>
-  | DatePickerQuestion<A>
+  | DateTimeQuestion<A>
 
 interface InputQuestion<A> extends QuestionCommon<A> {
   type: 'input'
@@ -97,8 +97,8 @@ interface EditorQuestion<A> extends QuestionCommon<A> {
   default?: string | number
 }
 
-interface DatePickerQuestion<A> extends QuestionCommon<A> {
-  type: 'datepicker'
+interface DateTimeQuestion<A> extends QuestionCommon<A> {
+  type: 'datetime'
   variant?: 'date' | 'time' | 'datetime'
   default?: string | Date
   minimum?: string | Date
