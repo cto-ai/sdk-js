@@ -66,6 +66,9 @@ export async function getSecret(key: string): Promise<any> {
   return await request.getSecret(key)
 }
 
+export async function setSecret(key: string, value: string): Promise<any> {
+  return await request.setSecret(key, value)
+}
 
 // We expect to add an 'event' field soon
 export async function track(

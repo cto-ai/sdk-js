@@ -44,6 +44,12 @@ export const getSecret = async <A>(key: string): Promise<A> => {
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
+export const setSecret = async <A>(key: string, value: string): Promise<A> => {
+  const daemonResponse = await axios.post(baseUrl + '/secret/set', { "key": key, "value": value })
+
+  return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
+}
+
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
   const fullURL = `${baseUrl}/${endpoint}`
 
