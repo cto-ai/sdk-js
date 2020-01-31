@@ -38,6 +38,12 @@ export const prompt = async <A>(data: Questions): Promise<A> => {
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
+export const getSecret = async <A>(key: string): Promise<A> => {
+  const daemonResponse = await axios.post(baseUrl + '/secret/get', { "key": key })
+
+  return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
+}
+
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
   const fullURL = `${baseUrl}/${endpoint}`
 

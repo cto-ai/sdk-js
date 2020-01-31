@@ -62,6 +62,11 @@ export async function getConfig(key: string): Promise<any> {
   return await config.get(key)
 }
 
+export async function getSecret(key: string): Promise<any> {
+  return await request.secret(key)
+}
+
+
 // We expect to add an 'event' field soon
 export async function track(
   tags: string[] | string,
