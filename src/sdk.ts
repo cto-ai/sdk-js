@@ -63,7 +63,7 @@ export async function getConfig(key: string): Promise<any> {
 }
 
 export async function getSecret(key: string): Promise<any> {
-  return await request.secret(key)
+  return await request.getSecret(key)
 }
 
 
