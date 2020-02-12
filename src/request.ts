@@ -3,7 +3,7 @@ import { readFileSync } from 'fs'
 import { Questions } from './types'
 import colors from './colors'
 
-const baseUrl = ((): String => {
+const baseUrl = (): String => {
   const port = process.env.SDK_SPEAK_PORT
   if (port) {
     return `http://127.0.0.1:${port}`
@@ -28,33 +28,36 @@ ${colors.bold('2)')} Your ${colors.callOutCyan(
 ${colors.actionBlue('FROM registry.cto.ai/official_images/node:latest')}
 `)
 
-    throw 'Fatal error!'
+    throw 'Error contacting daemon!'
   }
-})()
+}
 
 export const prompt = async <A>(data: Questions): Promise<A> => {
-  const daemonResponse = await axios.post(baseUrl + '/prompt', data)
+  const daemonResponse = await axios.post(baseUrl() + '/prompt', data)
 
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
 export const getSecret = async <A>(key: string): Promise<A> => {
-  const daemonResponse = await axios.post(baseUrl + '/secret/get', { "key": key })
+  const daemonResponse = await axios.post(baseUrl() + '/secret/get', {
+    key: key,
+  })
 
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
 export const setSecret = async <A>(key: string, value: string): Promise<A> => {
-  const daemonResponse = await axios.post(baseUrl + '/secret/set', { "key": key, "value": value })
+  const daemonResponse = await axios.post(baseUrl() + '/secret/set', {
+    key: key,
+    value: value,
+  })
 
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
-  const fullURL = `${baseUrl}/${endpoint}`
-
   return async (data: any): Promise<any> => {
-    await axios.post(fullURL, data)
+    await axios.post(`${baseUrl()}/${endpoint}`, data)
   }
 }
 
