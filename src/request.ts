@@ -32,32 +32,61 @@ ${colors.actionBlue('FROM registry.cto.ai/official_images/node:latest')}
   }
 }
 
+function processAxiosError(err: any): any {
+  if (err.response) {
+    return {
+      status: err.response.status,
+      data: err.response.data,
+    }
+  }
+  return err
+}
+
 export const prompt = async <A>(data: Questions): Promise<A> => {
-  const daemonResponse = await axios.post(baseUrl() + '/prompt', data)
+  let daemonResponse
+  try {
+    daemonResponse = await axios.post(baseUrl() + '/prompt', data)
+  } catch (err) {
+    throw processAxiosError(err)
+  }
 
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
 export const getSecret = async <A>(key: string): Promise<A> => {
-  const daemonResponse = await axios.post(baseUrl() + '/secret/get', {
-    key: key,
-  })
+  let daemonResponse
+  try {
+    daemonResponse = await axios.post(baseUrl() + '/secret/get', {
+      key: key,
+    })
+  } catch (err) {
+    throw processAxiosError(err)
+  }
 
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
 export const setSecret = async <A>(key: string, value: string): Promise<A> => {
-  const daemonResponse = await axios.post(baseUrl() + '/secret/set', {
-    key: key,
-    value: value,
-  })
+  let daemonResponse
+  try {
+    daemonResponse = await axios.post(baseUrl() + '/secret/set', {
+      key: key,
+      value: value,
+    })
+  } catch (err) {
+    throw processAxiosError(err)
+  }
 
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
   return async (data: any): Promise<any> => {
-    await axios.post(`${baseUrl()}/${endpoint}`, data)
+    try {
+      await axios.post(`${baseUrl()}/${endpoint}`, data)
+    } catch (err) {
+      throw processAxiosError(err)
+    }
   }
 }
 
