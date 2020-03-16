@@ -1,8 +1,6 @@
 import path from 'path'
 import util from 'util'
 import childProcess from 'child_process'
-import { State } from './state'
-import { Config } from './config'
 import * as request from './request'
 import { Interfaces } from './types'
 
@@ -43,23 +41,29 @@ export function getConfigPath(): string {
 }
 
 export async function setState(key: string, value: any): Promise<void> {
-  const state = new State(getStatePath())
-  await state.set(key, value)
+  await request.setState({ key, value })
+  return request.getKVAll('state/get-all')
+}
+
+export async function getAllState(): Promise<any> {
+  return request.getKVAll('state/get-all')
 }
 
 export async function getState(key: string): Promise<any> {
-  const state = new State(getStatePath())
-  return await state.get(key)
+  return request.getKV('state/get', key)
 }
 
 export async function setConfig(key: string, value: any): Promise<void> {
-  const config = new Config(getConfigPath())
-  await config.set(key, value)
+  await request.setConfig({ key, value })
+  return request.getKVAll('config/get-all')
 }
 
 export async function getConfig(key: string): Promise<any> {
-  const config = new Config(getConfigPath())
-  return await config.get(key)
+  return request.getKV('config/get', key)
+}
+
+export async function getAllConfig(): Promise<any> {
+  return request.getKVAll('config/get-all')
 }
 
 export async function getSecret(key: string): Promise<any> {

@@ -56,9 +56,7 @@ export const prompt = async <A>(data: Questions): Promise<A> => {
 export const getSecret = async <A>(key: string): Promise<A> => {
   let daemonResponse
   try {
-    daemonResponse = await axios.post(baseUrl() + '/secret/get', {
-      key: key,
-    })
+    daemonResponse = await axios.post(baseUrl() + '/secret/get', { key })
   } catch (err) {
     throw processAxiosError(err)
   }
@@ -69,15 +67,34 @@ export const getSecret = async <A>(key: string): Promise<A> => {
 export const setSecret = async <A>(key: string, value: string): Promise<A> => {
   let daemonResponse
   try {
-    daemonResponse = await axios.post(baseUrl() + '/secret/set', {
-      key: key,
-      value: value,
-    })
+    daemonResponse = await axios.post(baseUrl() + '/secret/set', { key, value })
   } catch (err) {
     throw processAxiosError(err)
   }
 
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
+}
+
+export const getKV = async <A>(endpoint: string, key: string): Promise<A> => {
+  let daemonResponse
+  try {
+    daemonResponse = await axios.post(baseUrl() + '/' + endpoint, { key })
+  } catch (err) {
+    throw processAxiosError(err)
+  }
+
+  return daemonResponse.data.value
+}
+
+export const getKVAll = async <A>(endpoint: string): Promise<A> => {
+  let daemonResponse
+  try {
+    daemonResponse = await axios.post(baseUrl() + '/' + endpoint, {})
+  } catch (err) {
+    throw processAxiosError(err)
+  }
+
+  return daemonResponse.data.value
 }
 
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
@@ -97,3 +114,5 @@ export const startProgress = sendRequest('progress-bar/start')
 export const advanceProgress = sendRequest('progress-bar/advance')
 export const stopProgress = sendRequest('progress-bar/stop')
 export const track = sendRequest('track')
+export const setState = sendRequest('state/set')
+export const setConfig = sendRequest('config/set')
