@@ -1,3 +1,5 @@
+![](https://cto.ai/static/sdk-banner.png)
+
 # CTO.ai SDK
 
 This is the Node.js SDK for the [CTO.ai](https://cto.ai/) Ops
