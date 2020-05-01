@@ -53,16 +53,16 @@ export async function getState(key: string): Promise<any> {
   return request.getKV('state/get', key)
 }
 
-export async function setConfig(key: string, value: any): Promise<void> {
+export async function setConfig(key: string, value: string): Promise<void> {
   await request.setConfig({ key, value })
   return request.getKVAll('config/get-all')
 }
 
-export async function getConfig(key: string): Promise<any> {
+export async function getConfig(key: string): Promise<string> {
   return request.getKV('config/get', key)
 }
 
-export async function getAllConfig(): Promise<any> {
+export async function getAllConfig(): Promise<object> {
   return request.getKVAll('config/get-all')
 }
 
