@@ -32,23 +32,28 @@ export function log(...args: any[]): void {
   console.log(...args)
 }
 
+// DEPRECATED: not useful without deprecated workflows feature
 export function getStatePath(): string {
   return path.resolve(process.env.SDK_STATE_DIR || '')
 }
 
+// DEPRECATED: not useful with the current config API
 export function getConfigPath(): string {
   return path.resolve(process.env.SDK_CONFIG_DIR || '')
 }
 
+// DEPRECATED: not useful without deprecated workflows feature
 export async function setState(key: string, value: any): Promise<void> {
   await request.setState({ key, value })
   return request.getKVAll('state/get-all')
 }
 
+// DEPRECATED: not useful without deprecated workflows feature
 export async function getAllState(): Promise<any> {
   return request.getKVAll('state/get-all')
 }
 
+// DEPRECATED: not useful without deprecated workflows feature
 export async function getState(key: string): Promise<any> {
   return request.getKV('state/get', key)
 }
