@@ -97,6 +97,17 @@ export const getKVAll = async <A>(endpoint: string): Promise<A> => {
   return daemonResponse.data.value
 }
 
+export const deleteKV = async <A>(endpoint: string, key: string): Promise<A> => {
+  let daemonResponse
+  try {
+    daemonResponse = await axios.post(baseUrl() + '/' + endpoint, { key })
+  } catch (err) {
+    throw processAxiosError(err)
+  }
+
+  return daemonResponse.data.value
+}
+
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
   return async (data: any): Promise<any> => {
     try {
