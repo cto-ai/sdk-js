@@ -71,6 +71,10 @@ export async function getAllConfig(): Promise<object> {
   return request.getKVAll('config/get-all')
 }
 
+export async function deleteConfig(key: string): Promise<string> {
+  return request.deleteKV('config/delete', key)
+}
+
 export async function getSecret(key: string): Promise<any> {
   return await request.getSecret(key)
 }
