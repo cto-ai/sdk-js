@@ -9,6 +9,10 @@
     "build": "rm -rf dist/ && tsc",
     "postversion": "git push"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cto-ai/sdk-js.git"
+  },
   "author": "",
   "license": "ISC",
   "files": [
