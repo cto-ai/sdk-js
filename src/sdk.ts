@@ -97,3 +97,7 @@ export async function track(
     // Do something with this error eventually
   }
 }
+
+export async function events(start: string, end?: string): Promise<any> {
+  return await request.events(start, end || new Date().toISOString())
+}
