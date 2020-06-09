@@ -111,10 +111,10 @@ export const deleteKV = async <A>(
   return daemonResponse.data.value
 }
 
-export const events = async <A>(begin: string, end: string): Promise<A> => {
+export const events = async <A>(start: string, end: string): Promise<A> => {
   let daemonResponse
   try {
-    daemonResponse = await axios.post(baseUrl() + '/events', { begin, end })
+    daemonResponse = await axios.post(baseUrl() + '/events', { start, end })
   } catch (err) {
     throw processAxiosError(err)
   }
