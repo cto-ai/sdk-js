@@ -8,12 +8,8 @@ const pExec = util.promisify(childProcess.exec)
 
 export async function exec(
   command: string,
-): Promise<{ stdout: string; stderr: string } | Error> {
-  try {
-    return pExec(command)
-  } catch (err) {
-    return err
-  }
+): Promise<{ stdout: string; stderr: string }> {
+  return await pExec(command)
 }
 
 export function getHostOS(): string {
