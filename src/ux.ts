@@ -1,8 +1,9 @@
 import cli from 'cli-ux'
 import link from 'terminal-link'
-import { Questions } from './types'
+import { Questions, Interfaces } from './types'
 import colors from './colors'
 import * as request from './request'
+import { getInterfaceType } from './sdk'
 
 const { table, tree } = cli
 
@@ -72,6 +73,18 @@ async function stopProgress(message?: string): Promise<void> {
   await request.stopProgress({ text: message })
 }
 
+function bold(text: string): string {
+  return getInterfaceType() == Interfaces.Slack
+    ? `*${text}*`
+    : colors.bold(text)
+}
+
+function italic(text: string): string {
+  return getInterfaceType() == Interfaces.Slack
+    ? `_${text}_`
+    : colors.italic(text)
+}
+
 export default {
   print,
   prompt,
@@ -84,5 +97,7 @@ export default {
   url,
   table,
   tree,
+  bold,
+  italic,
   progress: { init },
 }
