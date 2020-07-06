@@ -53,10 +53,16 @@ export const prompt = async <A>(data: Questions): Promise<A> => {
   return JSON.parse(readFileSync(daemonResponse.data.replyFilename, 'utf8'))
 }
 
-export const getSecret = async <A>(key: string): Promise<A> => {
+export const getSecret = async <A>(
+  key: string,
+  hidden: boolean,
+): Promise<A> => {
   let daemonResponse
   try {
-    daemonResponse = await axios.post(baseUrl() + '/secret/get', { key })
+    daemonResponse = await axios.post(baseUrl() + '/secret/get', {
+      key,
+      hidden,
+    })
   } catch (err) {
     throw processAxiosError(err)
   }

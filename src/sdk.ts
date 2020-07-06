@@ -71,8 +71,11 @@ export async function deleteConfig(key: string): Promise<boolean> {
   return request.deleteKV('config/delete', key)
 }
 
-export async function getSecret(key: string): Promise<any> {
-  return await request.getSecret(key)
+export async function getSecret(
+  key: string,
+  hidden: boolean = true,
+): Promise<any> {
+  return await request.getSecret(key, hidden)
 }
 
 export async function setSecret(key: string, value: string): Promise<any> {
