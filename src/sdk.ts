@@ -6,10 +6,24 @@ import { Interfaces } from './types'
 
 const pExec = util.promisify(childProcess.exec)
 
+export interface ExecOptions {
+  spawn?: boolean
+  env?: any
+}
+
 export async function exec(
   command: string,
-): Promise<{ stdout: string; stderr: string }> {
-  return await pExec(command)
+  options: ExecOptions = {},
+): Promise<{ stdout: string; stderr: string } | childProcess.ChildProcess> {
+  const childEnv = options.env
+    ? { ...options.env, ...process.env }
+    : process.env
+
+  if (options.spawn) {
+    return childProcess.spawn(command, { env: childEnv, shell: true })
+  } else {
+    return await pExec(command, { env: childEnv })
+  }
 }
 
 export function getHostOS(): string {
