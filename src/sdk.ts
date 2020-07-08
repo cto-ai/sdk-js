@@ -6,9 +6,13 @@ import { Interfaces } from './types'
 
 const pExec = util.promisify(childProcess.exec)
 
+export interface Env {
+  [key: string]: string | undefined
+}
+
 export interface ExecOptions {
   spawn?: boolean
-  env?: any
+  env?: Env
 }
 
 export async function exec(
