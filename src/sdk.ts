@@ -3,6 +3,7 @@ import util from 'util'
 import childProcess from 'child_process'
 import * as request from './request'
 import { Interfaces } from './types'
+import CTOAI_Error, { errorCodes } from './errors'
 
 const pExec = util.promisify(childProcess.exec)
 
@@ -111,10 +112,24 @@ export async function track(
       ...metadata,
     })
   } catch (e) {
-    // Do something with this error eventually
+    throw new CTOAI_Error(100, 'sdk.track')
   }
 }
 
 export async function events(start: string, end?: string): Promise<any> {
   return await request.events(start, end || new Date().toISOString())
+}
+
+export async function start(
+  workflowName: string,
+): Promise<void> {
+  try {
+    await request.startOp({
+      tags: ["trigger"],
+      trigger: true,
+      workflowName
+    })
+  } catch (e) {
+    throw new CTOAI_Error(100, 'sdk.start')
+  }
 }
