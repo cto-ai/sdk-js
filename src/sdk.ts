@@ -3,7 +3,7 @@ import util from 'util'
 import childProcess from 'child_process'
 import * as request from './request'
 import { Interfaces } from './types'
-import CTOAI_Error, { errorCodes } from './errors'
+import CTOAI_Error from './errors'
 
 const pExec = util.promisify(childProcess.exec)
 
