@@ -1,7 +1,4 @@
-###
-# Author: Brett Campbell (brett@hackcapital.com)
-# Date: Tuesday, 19th March 2019 11:57:28 am
-###
 node_modules
 .nyc_output
 dist
+package-lock.json
