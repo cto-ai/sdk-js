@@ -2,7 +2,7 @@ name: 'Test & Release'
 on:
   push:
     tags:
-      - v*
+      - v1.*
 jobs:
   validate:
     name: Validate source code
