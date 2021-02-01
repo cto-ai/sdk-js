@@ -1,6 +1,8 @@
-# Inquirer.js
+# CTO.ai SDK
 
-A collection of common interactive command line user interfaces.
+CTO.ai SDK for Node.js.
+
+_This is the 1.x version and it is deprecated. Please look at using the latest version._
 
 ## Table of Contents
 
@@ -20,11 +22,7 @@ A collection of common interactive command line user interfaces.
 
 ## [Documentation](#documentation)
 
-<a name="documentation"></a>
-
 ### Installation
-
-<a name="installation"></a>
 
 ```shell
 npm install @cto.ai/sdk
@@ -35,8 +33,6 @@ const { sdk, ux } from '@cto.ai/sdk';
 ```
 
 # Methods
-
-<a name="methods"></a>
 
 ## ux.prompt
 
