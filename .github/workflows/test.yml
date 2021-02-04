@@ -1,0 +1,23 @@
+name: 'Test'
+on:
+  push:
+    branches-ignore:
+      - 1.x
+    tags-ignore:
+      - v1.*
+
+jobs:
+  test:
+    name: Validate source code
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [12.x, 14.x]
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        name: Use version ${{ matrix.node-version }}
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
