@@ -128,6 +128,18 @@ export const events = async <A>(start: string, end: string): Promise<A> => {
   return daemonResponse.data.value
 }
 
+export const getUser = async <A>(): Promise<{id: string, username: string, email: string}> => {
+  let daemonResponse
+  try {
+    daemonResponse = await axios.get(baseUrl() + '/user')
+    
+  } catch (err) {
+    throw processAxiosError(err)
+  }
+  const { id, username, email } = daemonResponse.data
+  return { id, username, email }
+}
+
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
   return async (data: any): Promise<any> => {
     try {
