@@ -136,7 +136,7 @@ export const getUser = async <A>(): Promise<{id: string, username: string, email
   } catch (err) {
     throw processAxiosError(err)
   }
-  const { id, username, email } = daemonResponse.data
+  const { id, username, email } = daemonResponse.data.value
   return { id, username, email }
 }
 
