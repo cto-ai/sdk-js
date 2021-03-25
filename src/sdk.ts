@@ -133,3 +133,7 @@ export async function start(
     throw new CTOAI_Error(100, 'sdk.start')
   }
 }
+
+export async function user(): Promise<any> {
+  return await request.getUser()
+}
