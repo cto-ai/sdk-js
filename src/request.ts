@@ -140,6 +140,18 @@ export const getUser = async <A>(): Promise<{id: string, username: string, email
   return { id, username, email }
 }
 
+export const getTeam = async <A>(): Promise<{id: string, name: string}> => {
+  let daemonResponse
+  try {
+    daemonResponse = await axios.get(baseUrl() + '/team')
+    
+  } catch (err) {
+    throw processAxiosError(err)
+  }
+  const { id, name } = daemonResponse.data.value
+  return { id, name }
+}
+
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
   return async (data: any): Promise<any> => {
     try {
