@@ -135,9 +135,9 @@ export async function start(
 }
 
 export async function user(): Promise<any> {
-  return await request.getUser()
+  return request.getUser()
 }
 
 export async function team(): Promise<any> {
-  return await request.getTeam()
+  return request.getTeam()
 }

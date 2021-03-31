@@ -129,27 +129,23 @@ export const events = async <A>(start: string, end: string): Promise<A> => {
 }
 
 export const getUser = async <A>(): Promise<{id: string, username: string, email: string}> => {
-  let daemonResponse
   try {
-    daemonResponse = await axios.get(baseUrl() + '/user')
-    
+    const daemonResponse = await axios.get(baseUrl() + '/user')
+    const { id, username, email } = daemonResponse.data.value
+    return { id, username, email }
   } catch (err) {
     throw processAxiosError(err)
   }
-  const { id, username, email } = daemonResponse.data.value
-  return { id, username, email }
 }
 
 export const getTeam = async <A>(): Promise<{id: string, name: string}> => {
-  let daemonResponse
   try {
-    daemonResponse = await axios.get(baseUrl() + '/team')
-    
+    const daemonResponse = await axios.get(baseUrl() + '/team')
+    const { id, name } = daemonResponse.data.value
+    return { id, name }
   } catch (err) {
     throw processAxiosError(err)
   }
-  const { id, name } = daemonResponse.data.value
-  return { id, name }
 }
 
 function sendRequest(endpoint: string): (data: any) => Promise<void> {
