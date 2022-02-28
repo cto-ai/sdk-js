@@ -3,6 +3,10 @@ name: Test Tag
 on:
 
   workflow_dispatch:
+    inputs:
+        tagToTest:
+          description: 'Tag to test'
+          required: true
 
 jobs:
   build:
@@ -10,11 +14,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-
-      - name: Run a one-line script
-        run: echo Hello, world!
-
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+        with:
+          ref: ${{ github.event.inputs.tagToTest }}
+      - uses: actions/setup-node@v1
+        name: Use version ${{ matrix.node-version }}
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Install dependencies
+        run: npm install
