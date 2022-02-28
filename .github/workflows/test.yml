@@ -21,3 +21,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install dependencies
         run: npm install
+      - name: Test Dockerize
+        run: |
+          docker build --pull -t js-test:latest -f Dockerfile.javascript . && docker run --rm js-test:latest
