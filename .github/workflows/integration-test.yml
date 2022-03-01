@@ -2,6 +2,10 @@ name: Integration Test
 
 on:
   workflow_dispatch:
+    inputs:
+      gitTag:
+        description: 'Tag version (e. 1.1.6)'
+        required: true
   
 env: 
   GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
@@ -19,4 +23,4 @@ jobs:
         run: |
           git clone https://${{ env.GIT_TOKEN }}@github.com/cto-ai/sdk-integration-testing.git
           cd sdk-integration-testing
-          docker build --pull -t js-test:latest -f Dockerfile.javascript . && docker run --rm js-test:latest
+          docker build --build-arg SDK_TAG=v${{github.event.inputs.gitTag}} -f Dockerfile.javascript . && docker run --rm js-test:latest
