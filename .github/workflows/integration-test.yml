@@ -2,6 +2,10 @@ name: Integration Test
 
 on:
   workflow_dispatch:
+  
+env: 
+  GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
+  
 jobs:
 
   build:
