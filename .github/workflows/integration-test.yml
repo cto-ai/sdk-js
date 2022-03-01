@@ -23,4 +23,4 @@ jobs:
         run: |
           git clone https://${{ env.GIT_TOKEN }}@github.com/cto-ai/sdk-integration-testing.git
           cd sdk-integration-testing
-          docker build --build-arg SDK_TAG=v${{github.event.inputs.gitTag}} -f Dockerfile.javascript . && docker run --rm js-test:latest
+          docker build --pull -t js-test:latest --build-arg SDK_TAG=v${{github.event.inputs.gitTag}} -f Dockerfile.javascript . && docker run --rm js-test:latest
