@@ -17,6 +17,6 @@ jobs:
 
       - name: Clone Integration Test
         run: |
-          git clone https://$(GIT_TOKEN)@github.com/cto-ai/sdk-integration-testing.git
+          git clone https://${{ env.GIT_TOKEN }}@github.com/cto-ai/sdk-integration-testing.git
           cd sdk-integration-testing
           docker build --pull -t js-test:latest -f Dockerfile.javascript . && docker run --rm js-test:latest
