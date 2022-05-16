@@ -58,7 +58,6 @@ GitHub, requires the following procedure.
 This process avoids any permissions errors with the current NPM hooks
 and scripts.
 
-
 ## Submitting Modifications
 
 
