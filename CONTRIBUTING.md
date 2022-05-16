@@ -41,6 +41,7 @@ defined in `src/request.ts`. This code is not intended to be exposed
 to end users but functionality in the rest of the SDK should be
 implemented in terms of it.
 
+
 ## Release Process
 
 This SDK is published to NPM as `@cto.ai/sdk`. If logged in to an NPM
@@ -57,6 +58,7 @@ GitHub, requires the following procedure.
 
 This process avoids any permissions errors with the current NPM hooks
 and scripts.
+
 
 ## Submitting Modifications
 
