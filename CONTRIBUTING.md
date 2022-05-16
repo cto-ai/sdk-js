@@ -28,7 +28,6 @@ Install development dependencies
 ```
 npm install
 ```
----
 
 ## Project Structure
 
