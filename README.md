@@ -13,7 +13,7 @@ a variety of rich user interactions in the terminal.
 
 ### Install from source
 
-```
+``
 git clone https://github.com/cto-ai/sdk-js.git
 cd sdk-js
 npm install
