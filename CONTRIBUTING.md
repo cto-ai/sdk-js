@@ -75,5 +75,5 @@ and scripts.
 ## Once you've filed the PR:
 
 - One or more maintainers will use GitHub's review feature to review your PR.
-- If the maintainer asks for any changes, edit your changes, push, and ask for another review.
+- If the maintainer asks for any changes, you must edit your changes, push, and ask for another review.
 - If the maintainer decides to suggest some improvements or alternatives, modify and make improvements. Once your changes are approved, one of the project maintainers will merge them.
