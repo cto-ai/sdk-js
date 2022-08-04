@@ -1,6 +1,5 @@
 import cli from 'cli-ux'
-import inquirer = require('@cto.ai/inquirer')
-import { Question } from '@cto.ai/inquirer'
+import inquirer = require('inquirer')
 import * as cliProgress from 'cli-progress'
 import notifier from 'node-notifier'
 import link from 'terminal-link'
@@ -28,7 +27,7 @@ async function print(text: string): Promise<void> {
   })
 }
 
-async function prompt<A>(questions: Question[] | Question): Promise<A> {
+async function prompt<A>(questions: inquirer.QuestionCollection<A>): Promise<A> {
   // sdk.track(['UX', 'prompt'], questions);
   return inquirer.prompt<A>(questions)
 }
